@@ -17,6 +17,15 @@ PORT = 8123
 
 
 def main():
+    if not specs.specs_path.exists():
+        specs.specs_path.mkdir()
+
+    if specs.is_empty():
+        print(
+            "Please populate the `specs` folder with swagger json files, otherwise we can't do anything."
+        )
+        exit(1)
+
     args = parser.parse_args()
     renderer = HTMLRenderer(specs=specs.load())
     renderer.generate()
